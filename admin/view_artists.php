@@ -5,7 +5,7 @@ $result = mysqli_query($conn, "SELECT * FROM artist");
 ?>
 
 <h2>All Artists</h2>
-<a href="add_artist.php">Add New Artist</a><br><br>
+<a href="artist/add-artist-content.php">Add New Artist</a><br><br>
 
 <table border="1" cellpadding="10">
     <tr>
@@ -22,7 +22,7 @@ $result = mysqli_query($conn, "SELECT * FROM artist");
         <td>
             <a href="edit_artist.php?id=<?= $row['id'] ?>">Edit</a> |
             <a href="delete_artist.php?id=<?= $row['id'] ?>" onclick="return confirm('Delete this artist?')">Delete</a>
-            <a href="dashboard.php">Back to Dashboard</a><br><br>
+            <a href="dashboard/dashboard.php">Back to Dashboard</a><br><br>
 
         </td>
     </tr>

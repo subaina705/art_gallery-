@@ -1,10 +1,10 @@
 <?php
 $conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
 
-$query = "SELECT artwork.*, artist.name AS artist_name, categories.name AS category_name
-          FROM artwork
-          JOIN artist ON artwork.artist_id = artist.id
-          LEFT JOIN categories ON artwork.category_id = categories.id";
+$query = "SELECT add-artwork.*, artist.name AS artist_name, categories.name AS category_name
+          FROM add-artwork
+          JOIN artist ON add-artwork.artist_id = artist.id
+          LEFT JOIN categories ON add-artwork.category_id = categories.id";
 
 $result = mysqli_query($conn, $query);
 ?>
@@ -31,7 +31,7 @@ $result = mysqli_query($conn, $query);
         <td><strong><?= $row['category_name'] ?></strong></td>
         <td>
             <a href="edit_artwork.php?id=<?= $row['id'] ?>">Edit</a> |
-            <a href="delete_artwork.php?id=<?= $row['id'] ?>" onclick="return confirm('Delete this artwork?')">Delete</a>
+            <a href="delete_artwork.php?id=<?= $row['id'] ?>" onclick="return confirm('Delete this add-artwork?')">Delete</a>
         </td>
     </tr>
     <?php endwhile; ?>

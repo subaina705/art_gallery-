@@ -2,7 +2,7 @@
 $conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
 
 $id = $_GET['id'];
-$get_artwork = mysqli_query($conn, "SELECT * FROM artwork WHERE id = $id");
+$get_artwork = mysqli_query($conn, "SELECT * FROM add-artwork WHERE id = $id");
 $artwork = mysqli_fetch_assoc($get_artwork);
 
 $artists = mysqli_query($conn, "SELECT * FROM artist");
@@ -12,7 +12,7 @@ if (isset($_POST['update'])) {
     $artist_id = $_POST['artist_id'];
     $desc = $_POST['description'];
 
-    mysqli_query($conn, "UPDATE artwork 
+    mysqli_query($conn, "UPDATE add-artwork 
                          SET title='$title', artist_id='$artist_id', description='$desc' 
                          WHERE id = $id");
 

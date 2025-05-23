@@ -8,14 +8,14 @@ $categories_result = mysqli_query($conn, "SELECT * FROM categories");
 $category_filter = "";
 if (isset($_GET['category_id']) && $_GET['category_id'] != "") {
     $category_id = mysqli_real_escape_string($conn, $_GET['category_id']);
-    $category_filter = "WHERE artwork.category_id = $category_id";
+    $category_filter = "WHERE add-artwork.category_id = $category_id";
 }
 
 // Query artworks with optional filter
-$query = "SELECT artwork.id, artwork.title, artwork.description, artist.name AS artist_name, categories.name AS category_name
-          FROM artwork
-          JOIN artist ON artwork.artist_id = artist.id
-          LEFT JOIN categories ON artwork.category_id = categories.id
+$query = "SELECT add-artwork.id, add-artwork.title, add-artwork.description, artist.name AS artist_name, categories.name AS category_name
+          FROM add-artwork
+          JOIN artist ON add-artwork.artist_id = artist.id
+          LEFT JOIN categories ON add-artwork.category_id = categories.id
           $category_filter";
 
 $result = mysqli_query($conn, $query);

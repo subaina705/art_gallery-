@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
 
 <form method="POST">
     <h2>Add Artist</h2>
-    <input type="text" name="name" placeholder="Artist Name" required><br><br>
-    <textarea name="bio" placeholder="Short Bio" required></textarea><br><br>
-    <button type="submit" name="submit">Add Artist</button>
+    <input class="form-control mt-3" type="text" name="name" placeholder="Artist Name" required>
+    <textarea class="form-control mt-3" name="bio" placeholder="Short Bio" required></textarea>
+    <button class="btn btn-primary mt-3" type="submit" name="submit">Add Artist</button>
 </form>

@@ -3,7 +3,7 @@ $conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
 
 $query = "SELECT pr.*, a.title AS artwork_title 
           FROM purchase_requests pr
-          JOIN artwork a ON pr.artwork_id = a.id
+          JOIN add-artwork a ON pr.artwork_id = a.id
           ORDER BY pr.request_date DESC";
 
 $result = mysqli_query($conn, $query);
