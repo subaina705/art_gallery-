@@ -5,5 +5,5 @@ $id = $_GET['id'];
 
 mysqli_query($conn, "DELETE FROM artist WHERE id='$id'");
 
-header("Location: view_artists.php");
+header("Location: ../view-artist/view-artists.php");
 exit;

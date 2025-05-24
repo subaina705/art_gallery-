@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['admin'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,9 +27,11 @@
             <div class="logo">
                 <img style="width: 120px" src="../logo.png" alt="Logo">
             </div>
-            <div class="user-info">
-                <span>Admin Name</span>
-                <a href="#">Logout</a>
+            <div class="user-info d-flex align-items-center">
+                <span class="me-3">
+                    <?= htmlspecialchars($_SESSION['admin']['username']) ?>
+                </span>
+                <a href="../logout.php" class="btn btn-secondary m-0">Logout</a>
             </div>
         </header>
 

@@ -21,16 +21,17 @@ $result = mysqli_query($conn, $query);
         <th>Date</th>
     </tr>
     <?php while ($row = mysqli_fetch_assoc($result)): ?>
-    <tr>
-        <td><?= $row['id'] ?></td>
-        <td><?= $row['artwork_title'] ?></td>
-        <td><?= $row['name'] ?></td>
-        <td><?= $row['email'] ?></td>
-        <td><?= $row['phone'] ?></td>
-        <td><?= $row['message'] ?></td>
-        <td><?= $row['request_date'] ?></td>
-        <td><a href="delete_request.php?id=<?= $row['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a></td>
+        <tr>
+            <td><?= $row['id'] ?></td>
+            <td><?= $row['artwork_title'] ?></td>
+            <td><?= $row['name'] ?></td>
+            <td><?= $row['email'] ?></td>
+            <td><?= $row['phone'] ?></td>
+            <td><?= $row['message'] ?></td>
+            <td><?= $row['request_date'] ?></td>
+            <td><a href="../delete-request/delete_request.php?id=<?= $row['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
 
-    </tr>
+        </tr>
     <?php endwhile; ?>
 </table>

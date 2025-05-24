@@ -5,5 +5,5 @@ $id = $_GET['id'];
 
 mysqli_query($conn, "DELETE FROM purchase_requests WHERE id='$id'");
 
-header("Location: view_requests.php");
+header("Location: view-requests.php");
 exit;
