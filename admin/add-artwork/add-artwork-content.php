@@ -3,6 +3,7 @@ $conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
 
 // Fetch categories for dropdown
 $categories = mysqli_query($conn, "SELECT * FROM categories");
+$artists = mysqli_query($conn, "SELECT * FROM artist");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
@@ -61,8 +62,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <textarea name="description" class="form-control"></textarea>
             </div>
             <div class="mb-3">
-                <label for="" class="form-label">Artist ID</label>
-                <input type="number" name="artist_id" class="form-control">
+                <label for="" class="form-label">Artist</label>
+                <select name="artist_id" class="form-select">
+                    <?php while ($artist = mysqli_fetch_assoc($artists)): ?>
+                        <option value="<?= $artist['id'] ?>"><?= $artist['name'] ?></option>
+                    <?php endwhile; ?>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Category</label>

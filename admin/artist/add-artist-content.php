@@ -6,7 +6,6 @@ if (isset($_POST['submit'])) {
     $bio = $_POST['bio'];
 
     $query = "INSERT INTO artist (name, bio) VALUES ('$name', '$bio')";
-    mysqli_query($conn, $query);
     if (mysqli_query($conn, $query)) {
         $successMessage = "Artist added successfully!";
     }
