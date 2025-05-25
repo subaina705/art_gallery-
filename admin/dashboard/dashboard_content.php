@@ -13,55 +13,41 @@ function countDatabaseItems($tableName)
     $conn->close();
     return $count;
 }
-
 ?>
 
-<div class="row mb-3">
-    <div class="col-lg-4">
+
+
+<!-- Dashboard Summary Cards -->
+<div class="dashboard-summary row mb-3">
+    <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <div>
-                    <h6>
-                        Total Artists
-                    </h6>
-                    <h3><?php echo countDatabaseItems('artist'); ?></h3>
-                </div>
+                <h6>Total Artists</h6>
+                <h3><?php echo countDatabaseItems('artist'); ?></h3>
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <div>
-                    <h6>
-                        Total Artworks
-                    </h6>
-                    <h3><?php echo countDatabaseItems('artwork'); ?></h3>
-                </div>
+                <h6>Total Artworks</h6>
+                <h3><?php echo countDatabaseItems('artwork'); ?></h3>
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-body">
-                <div>
-                    <h6>
-                        Total Requests
-                    </h6>
-                    <h3><?php echo countDatabaseItems('purchase_requests'); ?></h3>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
 </div>
+
+<!-- Welcome Message -->
 <div class="container mt-4">
     <div class="text-center mt-5" role="alert">
-        <h1>
-            Welcome, <?= htmlspecialchars($_SESSION['admin']['username']) ?>!
-        </h1>
+        <h1>Welcome, <?= htmlspecialchars($_SESSION['admin']['username']) ?>!</h1>
     </div>
 </div>
-<!--<div class="main_img">-->
+
+
+<!-- <div class="main_img">-->
 <!--    <img src="../main_img.webp" alt="">-->
 <!---->
 <!--    <div class="txt">-->
@@ -74,4 +60,4 @@ function countDatabaseItems($tableName)
 <!--            <button>Explore</button>-->
 <!--        </a>-->
 <!--    </div>-->
-<!--</div>-->
+<!--</div> -->

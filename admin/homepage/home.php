@@ -6,7 +6,7 @@ if (!$conn) {
 }
 
 $query = "SELECT name, bio FROM artist LIMIT 4";
-$result = mysqli_query($conn, $query);
+$result = mysqli_query($conn, $query); 
 
 // Query to get artworks with artist name and category name
 $artwork_query = "SELECT `artwork`.*, artist.name AS artist_name, categories.name AS category_name
