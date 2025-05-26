@@ -8,6 +8,8 @@
         <li><a href="../view-artist/view-artists.php" class="<?= ($currentPage == 'view-artists.php') ? 'active' : '' ?>">Manage Artists</a></li>
         <li><a href="../add-artwork/add-artwork.php" class="<?= ($currentPage == 'add-artwork.php') ? 'active' : '' ?>">Add Artwork</a></li>
         <li><a href="../view-artworks/view-artworks.php" class="<?= ($currentPage == 'view-artworks.php') ? 'active' : '' ?>">Manage Artworks</a></li>
+        <li><a href="../add-category/add-category.php" class="<?= ($currentPage == 'add-category') ? 'active' : '' ?>">Manage Categories</a></li>
+
 <!--        <li><a href="#" class="">Logout</a></li>-->
     </ul>
 </div>

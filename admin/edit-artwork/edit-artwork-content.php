@@ -1,8 +1,9 @@
 <?php
 $conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
 
-// Get categories for dropdown
+// Get categories and artists for dropdowns
 $categories = mysqli_query($conn, "SELECT * FROM categories");
+$artists = mysqli_query($conn, "SELECT * FROM artist");
 
 // Get the artwork id from query string
 $artwork_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -116,9 +117,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                           required><?= htmlspecialchars($artwork['description']) ?></textarea>
             </div>
             <div class="mb-3">
-                <label class="form-label">Artist ID</label>
-                <input type="number" name="artist_id" class="form-control"
-                       value="<?= htmlspecialchars($artwork['artist_id']) ?>" required>
+                <label class="form-label">Artist</label>
+                <select name="artist_id" class="form-select" required>
+                    <?php
+                    // Reset pointer to loop again
+                    mysqli_data_seek($artists, 0);
+                    while ($artist = mysqli_fetch_assoc($artists)): ?>
+                        <option value="<?= $artist['id'] ?>" <?= ($artist['id'] == $artwork['artist_id']) ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($artist['name']) ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Category</label>
