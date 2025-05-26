@@ -83,9 +83,9 @@ $chunks = array_chunk($artworks, 3);
                     Explore a world of creativity and connect with talented artists from around the globe.
                     Find your next masterpiece today.
                 </p>
-                <button class="btn btn-warning btn-lg px-5 py-3 fw-semibold text-dark">
+                <a href="../login.php" class="btn btn-warning btn-lg px-5 py-3 fw-semibold text-dark">
                     Join Now
-                </button>
+                </a>
             </div>
         </div>
     </div>
