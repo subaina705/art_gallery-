@@ -28,7 +28,7 @@ if (isset($_POST['login'])) {
         $result = $stmt->get_result();
 
         if ($result->num_rows === 1) {
-            $admin = $result->fetch_assoc();
+            $admin = $result->fetch_assoc(); 
 
             // Verify password (plain text comparison - INSECURE, see note below)
             if ($pass === $admin['password']) {
