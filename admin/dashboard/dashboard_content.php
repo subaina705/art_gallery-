@@ -15,11 +15,9 @@ function countDatabaseItems($tableName)
 }
 ?>
 
-
-
 <!-- Dashboard Summary Cards -->
 <div class="dashboard-summary row mb-3">
-    <div class="col-lg-6">
+    <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <h6>Total Artists</h6>
@@ -27,7 +25,8 @@ function countDatabaseItems($tableName)
             </div>
         </div>
     </div>
-    <div class="col-lg-6">
+
+    <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <h6>Total Artworks</h6>
@@ -36,7 +35,14 @@ function countDatabaseItems($tableName)
         </div>
     </div>
 
-
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h6>Total Categories</h6>
+                <h3><?php echo countDatabaseItems('categories'); ?></h3>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Welcome Message -->
@@ -46,18 +52,19 @@ function countDatabaseItems($tableName)
     </div>
 </div>
 
+<!--
+<div class="main_img">
+    <img src="../main_img.webp" alt="">
 
-<!-- <div class="main_img">-->
-<!--    <img src="../main_img.webp" alt="">-->
-<!---->
-<!--    <div class="txt">-->
-<!--        <h1>New This Week</h1>-->
-<!--        <p>Discover New Art Our Curators Love Every Week</p>-->
-<!--    </div>-->
-<!---->
-<!--    <div class="top_button">-->
-<!--        <a href="#">-->
-<!--            <button>Explore</button>-->
-<!--        </a>-->
-<!--    </div>-->
-<!--</div> -->
+    <div class="txt">
+        <h1>New This Week</h1>
+        <p>Discover New Art Our Curators Love Every Week</p>
+    </div>
+
+    <div class="top_button">
+        <a href="#">
+            <button>Explore</button>
+        </a>
+    </div>
+</div>
+-->

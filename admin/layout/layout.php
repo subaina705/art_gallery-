@@ -25,7 +25,7 @@ if (!isset($_SESSION['admin'])) {
     <div class="main-content">
         <header class="top-nav">
             <div class="logo">
-                <img style="width: 120px" src="../logo.png" alt="Logo">
+                 <a class="navbar-brand fw-bold text-primary fs-3" href="#">ArtGallery</a>
             </div>
             <div class="user-info d-flex align-items-center">
                 <span class="me-3">

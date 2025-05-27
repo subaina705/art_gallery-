@@ -57,6 +57,9 @@ if (isset($_POST['login'])) {
     <title>Admin Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body{
+             background: linear-gradient(135deg, #0d6efd 0%, #6f42c1 100%);
+        }
         .max-height{
             height: 100vh;
             display: flex;
@@ -71,10 +74,55 @@ if (isset($_POST['login'])) {
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+        .decorative-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.2;
+}
+
+.shape-1 {
+    width: 80px;
+    height: 80px;
+    background: #ffc107;
+    top: 10%;
+    left: 10%;
+}
+
+.shape-2 {
+    width: 120px;
+    height: 120px;
+    background: #e91e63;
+    bottom: 10%;
+    right: 10%;
+}
+
+.shape-3 {
+    width: 60px;
+    height: 60px;
+    background: #4caf50;
+    top: 50%;
+    left: 25%;
+}
     </style>
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="login-style.css"> <!-- Your custom styles -->
+</head>
 <body>
-<div class="max-height">
+
+<div class="login-background position-relative d-flex align-items-center justify-content-center" style="height: 100vh;">
+
+    <!-- Decorative Circles -->
+    <div class="decorative-shape shape-1"></div>
+    <div class="decorative-shape shape-2"></div>
+    <div class="decorative-shape shape-3"></div>
+
+    <!-- Login Form -->
     <div class="login-container">
         <h2 class="text-center mb-4">Admin Login</h2>
         <?php if (!empty($error)): ?>
