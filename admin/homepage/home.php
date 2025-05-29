@@ -13,7 +13,8 @@ $artwork_query = "SELECT `artwork`.*, artist.name AS artist_name, categories.nam
                   FROM `artwork`
                   JOIN artist ON `artwork`.artist_id = artist.id
                   LEFT JOIN categories ON `artwork`.category_id = categories.id
-                 ";
+                  LIMIT 15";
+
 $artwork_result = mysqli_query($conn, $artwork_query);
 
 $artworks = [];
@@ -62,6 +63,9 @@ $chunks = array_chunk($artworks, 3);
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#artworks">Artworks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="collection.php">Collection</a>
                 </li>
             </ul>
             <a href="../login.php" class="btn btn-primary px-4">Login</a>
