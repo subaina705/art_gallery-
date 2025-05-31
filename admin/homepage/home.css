@@ -1,6 +1,32 @@
-/* Custom CSS for ArtGallery */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
-/* Hero Section */
+body {
+    margin: 0;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.card {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+    border: none !important;
+    padding: 10px;
+}
+
+.btn:focus, .btn-close:focus {
+    box-shadow: none;
+}
+
+.form-control:focus, .form-check-input:focus {
+    box-shadow: none;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.fs-12 {
+    font-size: 12px;
+}
+
 .hero-section {
     background: linear-gradient(135deg, #0d6efd 0%, #6f42c1 100%);
     min-height: 100dvh;
@@ -172,6 +198,46 @@ html {
 .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cart-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+}
+
+.remove-from-cart-btn {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.cart-img-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-img-container img {
+    height: 100px;
+    object-fit: cover;
+}
+
+#no-artworks-alert {
+    transition: all 0.3s ease;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 /* Responsive adjustments */

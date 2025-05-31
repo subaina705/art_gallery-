@@ -6,7 +6,7 @@ if (!$conn) {
 }
 
 $query = "SELECT name, bio FROM artist LIMIT 4";
-$result = mysqli_query($conn, $query); 
+$result = mysqli_query($conn, $query);
 
 // Query to get artworks with artist name and category name
 $artwork_query = "SELECT `artwork`.*, artist.name AS artist_name, categories.name AS category_name
@@ -18,7 +18,7 @@ $artwork_query = "SELECT `artwork`.*, artist.name AS artist_name, categories.nam
 $artwork_result = mysqli_query($conn, $artwork_query);
 
 $artworks = [];
-while($row = mysqli_fetch_assoc($artwork_result)) {
+while ($row = mysqli_fetch_assoc($artwork_result)) {
     $artworks[] = $row;
 }
 
@@ -151,8 +151,10 @@ $chunks = array_chunk($artworks, 3);
                                              style="height: 250px; object-fit: cover;">
                                         <div class="card-body">
                                             <h5 class="card-title"><?= htmlspecialchars($row['title']) ?></h5>
-                                            <p class="card-text text-muted mb-1">by <?= htmlspecialchars($row['artist_name']) ?></p>
-                                            <p class="card-text text-muted mb-2">Category: <?= htmlspecialchars($row['category_name'] ?? 'Uncategorized') ?></p>
+                                            <p class="card-text text-muted mb-1">
+                                                by <?= htmlspecialchars($row['artist_name']) ?></p>
+                                            <p class="card-text text-muted mb-2">
+                                                Category: <?= htmlspecialchars($row['category_name'] ?? 'Uncategorized') ?></p>
                                         </div>
                                     </div>
                                 </div>
