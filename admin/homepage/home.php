@@ -96,7 +96,9 @@ $aosAnimations = ['flip-left', 'flip-up', 'flip-right', 'flip-down'];
         <div class="row justify-content-center text-center text-white">
             <div class="col-lg-10">
                 <h1 class="display-3 fw-bold mb-4">
-                    <span id="element" class="d-block text-warning">
+                    <span>Discover the Creativity</span>
+                    <span  class="d-block text-warning">
+Where you can explore Arts, Artists and Artworks!
                     </span>
                 </h1>
                 <p class="lead mb-5 text-light">
