@@ -50,10 +50,6 @@ A comprehensive web-based art gallery management system that allows administrato
   - Animation Libraries (AOS + Animate.css)
     - Used for smooth transitions and effects
     - Enhances user experience with dynamic elements
-  - Typeit.js
-    - Provides dynamic text typing animations
-    - Used for engaging text presentations
-    - Creates interactive typing effects on the website
 
 ## 📁 Project Structure
 

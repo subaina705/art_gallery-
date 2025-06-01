@@ -36,7 +36,7 @@ $result = mysqli_query($conn, $query);
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold"><?= htmlspecialchars($row['title']) ?></h5>
                         <h6 class="card-subtitle mb-0 text-muted fs-14">by <?= htmlspecialchars($row['artist_name']) ?></h6>
-                        <p class="card-text flex-grow-1 text-muted my-3 fs-14"><i><?= nl2br(htmlspecialchars($row['description'])) ?></i></p>
+                        <p class="card-text flex-grow-1 text-muted my-2 fs-14"><i><?= nl2br(htmlspecialchars($row['description'])) ?></i></p>
                         <p class="fs-14"><strong>Category:</strong> <?= htmlspecialchars($row['category_name']) ?></p>
                         <div class="mt-auto d-flex gap-4 justify-content-end">
                             <a href="../edit-artwork/edit-artwork.php?id=<?= $row['id'] ?>"

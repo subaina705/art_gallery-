@@ -5,22 +5,19 @@ if (!isset($_SESSION['admin'])) {
     header("Location: login.php");
     exit();
 }
-// Connect to database and get current admin data if not in session
-if (!isset($_SESSION['admin']['profile_image']) || !isset($_SESSION['admin']['username'])) {
-    $conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
-    $admin_id = $_SESSION['admin']['id'];
-    $stmt = $conn->prepare("SELECT username, profile_image FROM admin WHERE id = ?");
-    $stmt->bind_param("i", $admin_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $admin_data = $result->fetch_assoc();
+// Connect to database and get current admin data
+$conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
+$admin_id = $_SESSION['admin']['id'];
+$stmt = $conn->prepare("SELECT username FROM admin WHERE id = ?");
+$stmt->bind_param("i", $admin_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$admin_data = $result->fetch_assoc();
 
-    // Update session with the fresh data
-    $_SESSION['admin']['username'] = $admin_data['username'];
-    $_SESSION['admin']['profile_image'] = $admin_data['profile_image'];
-    $stmt->close();
-    $conn->close();
-}
+// Always update session with the fresh data
+$_SESSION['admin']['username'] = $admin_data['username'];
+$stmt->close();
+$conn->close();
 ?>
 
 <!doctype html>
@@ -49,19 +46,7 @@ if (!isset($_SESSION['admin']['profile_image']) || !isset($_SESSION['admin']['us
             <div class="user-info d-flex align-items-center gap-4">
                 <div class="d-flex align-items-center gap-2">
                     <div class="avatar">
-                        <?php if (!empty($_SESSION['admin']['profile_image'])): ?>
-                            <!-- Debug output -->
-                            <div style="display:none">
-                                Image path: <?= htmlspecialchars($_SESSION['admin']['profile_image']) ?>
-                                File exists: <?= file_exists($_SESSION['admin']['profile_image']) ? 'Yes' : 'No' ?>
-                            </div>
-                            <img src="<?= htmlspecialchars($_SESSION['admin']['profile_image']) ?>"
-                                 alt="Profile Image"
-                                 class="rounded-circle"
-                                 style="width: 32px; height: 32px; object-fit: cover;">
-                        <?php else: ?>
-                            <i class="fa-regular fa-user"></i>
-                        <?php endif; ?>
+                        <i class="fa-regular fa-user"></i>
                     </div>
                     <span>
             <?= htmlspecialchars($_SESSION['admin']['username']) ?>

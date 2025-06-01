@@ -12,7 +12,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     if ($data['total'] > 0) {
         $_SESSION['alert'] = [
             'type' => 'danger',
-            'message' => 'Cannot delete artist. They are associated with one or more artworks.'
+            'message' => 'Error: Cannot delete artist. They are associated with one or more artworks.'
         ];
     } else {
         mysqli_query($conn, "DELETE FROM artist WHERE id = $id");

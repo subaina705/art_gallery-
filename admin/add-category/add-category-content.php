@@ -62,7 +62,7 @@ if (isset($_GET["delete"])) {
     $check->close();
 
     if ($count > 0) {
-        $alert = "Cannot delete category. It is associated with one or more artworks.";
+        $alert = "Error: Cannot delete category. It is associated with one or more artworks.";
         $alert_type = "danger";
     } else {
         $stmt = $conn->prepare("DELETE FROM categories WHERE id = ?");
