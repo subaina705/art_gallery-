@@ -22,6 +22,7 @@ if (isset($_POST['login'])) {
     if (empty($user) || empty($pass)) {
         $error = "Please enter both username and password.";
     } else {
+        // Prevention of SQL Injection //
         $stmt = $conn->prepare("SELECT id, username, password FROM admin WHERE username = ?");
         $stmt->bind_param("s", $user);
         $stmt->execute();
@@ -111,7 +112,8 @@ if (isset($_POST['login'])) {
             top: 50%;
             left: 25%;
         }
-        .home-btn{
+
+        .home-btn {
             position: fixed;
             top: 30px;
             left: 30px;
