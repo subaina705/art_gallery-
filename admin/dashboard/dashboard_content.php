@@ -13,7 +13,11 @@ function countDatabaseItems($tableName)
     $conn->close();
     return $count;
 }
+
 ?>
+<div>
+    <h3 class="fw-bold mb-5">Dashboard</h3>
+</div>
 
 <!-- Dashboard Summary Cards -->
 <div class="dashboard-summary row mb-3">
@@ -51,20 +55,3 @@ function countDatabaseItems($tableName)
         <h1>Welcome, <?= htmlspecialchars($_SESSION['admin']['username']) ?>!</h1>
     </div>
 </div>
-
-<!--
-<div class="main_img">
-    <img src="../main_img.webp" alt="">
-
-    <div class="txt">
-        <h1>New This Week</h1>
-        <p>Discover New Art Our Curators Love Every Week</p>
-    </div>
-
-    <div class="top_button">
-        <a href="#">
-            <button>Explore</button>
-        </a>
-    </div>
-</div>
--->

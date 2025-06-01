@@ -1,9 +1,24 @@
 <?php
+// Add error reporting at the top
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Database connection
 $conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
 // Fetch categories and artists for dropdowns
 $categories = mysqli_query($conn, "SELECT * FROM categories");
 $artists = mysqli_query($conn, "SELECT * FROM artist");
+
+// Verify queries worked
+if (!$categories || !$artists) {
+    die("Query failed: " . mysqli_error($conn));
+}
 
 $showModal = false;
 
@@ -17,9 +32,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $imageName = basename($_FILES['artwork_image']['name']);
         $imageTmp = $_FILES['artwork_image']['tmp_name'];
 
+        // Validate file type
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        $fileType = mime_content_type($imageTmp);
+        if (!in_array($fileType, $allowedTypes)) {
+            die("Error: Only JPG, PNG, and GIF files are allowed.");
+        }
+
         $targetDir = "uploads/";
         if (!file_exists($targetDir)) {
-            mkdir($targetDir, 0777, true);
+            if (!mkdir($targetDir, 0777, true)) {
+                die("Failed to create upload directory");
+            }
         }
 
         $imagePath = $targetDir . uniqid() . '_' . $imageName;
@@ -28,20 +52,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $query = "INSERT INTO artwork (title, description, artist_id, category_id, image_path) 
                       VALUES (?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($conn, $query);
+            if (!$stmt) {
+                die("Prepare failed: " . mysqli_error($conn));
+            }
+
             mysqli_stmt_bind_param($stmt, "ssiis", $title, $description, $artist_id, $category_id, $imagePath);
 
             if (mysqli_stmt_execute($stmt)) {
-                // Redirect to the same page with a success parameter
+                // Redirect to same page with success flag
                 header("Location: ".$_SERVER['PHP_SELF']."?success=1");
                 exit();
+            } else {
+                die("Execute failed: " . mysqli_stmt_error($stmt));
             }
             mysqli_stmt_close($stmt);
+        } else {
+            die("File upload failed");
         }
+    } else {
+        die("File upload error: " . $_FILES['artwork_image']['error']);
     }
 }
 
-// Check for success parameter in URL
-if (isset($_GET['success']) && $_GET['success'] == 1) {
+// Show modal if redirected with success=1
+if (isset($_GET['success']) && $_GET['success'] == '1') {
     $showModal = true;
 }
 ?>

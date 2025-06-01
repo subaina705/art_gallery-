@@ -40,8 +40,8 @@ $showModal = isset($_GET['success']) && $_GET['success'] == 1;
 
 <form method="POST">
     <div class="mb-5 d-flex align-items-center justify-content-between">
-        <h2>Add Artist</h2>
-        <a class="text-black" href="../view-artist/view-artists.php">View Artist</a>
+        <h3 class="fw-bold">Add Artist</h3>
+        <a class="btn btn-primary btn-sm" href="../view-artist/view-artists.php">View Artists</a>
     </div>
 
     <div class="card">
@@ -55,7 +55,7 @@ $showModal = isset($_GET['success']) && $_GET['success'] == 1;
                 <textarea class="form-control" name="bio" placeholder="Short Bio" required></textarea>
             </div>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-primary mt-3" type="submit" name="submit">Add Artist</button>
+                <button class="btn btn-primary mt-3 btn-sm" type="submit" name="submit">Add Artist</button>
             </div>
         </div>
     </div>

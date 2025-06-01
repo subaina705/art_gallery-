@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+// Check if admin is logged in
+$isAdminLoggedIn = isset($_SESSION['admin']);
+
 // Initialize cart as array if not set
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
@@ -153,6 +156,7 @@ $cart_count = count($_SESSION['cart']);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
           integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="home.css" rel="stylesheet"> <!-- Adjust path if needed -->
 </head>
@@ -175,16 +179,23 @@ $cart_count = count($_SESSION['cart']);
                 </li>
             </ul>
             <!-- Offcanvas trigger -->
-            <a href="#" class="btn btn-outline-primary position-relative me-2" data-bs-toggle="offcanvas"
-               data-bs-target="#cartOffcanvas">
-                Bookings
-                <?php if ($cart_count > 0): ?>
-                    <span id="cart-count"
-                          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <div class="d-flex gap-3">
+                <?php if ($isAdminLoggedIn): ?>
+                    <a href="../dashboard/dashboard.php" class="btn btn-primary px-4">Dashboard</a>
+                <?php else: ?>
+                    <a href="../login.php" class="btn btn-primary px-4">Login</a>
+                <?php endif; ?>
+                <a href="#" class="btn btn-outline-primary position-relative me-2" data-bs-toggle="offcanvas"
+                   data-bs-target="#cartOffcanvas">
+                    Bookings
+                    <?php if ($cart_count > 0): ?>
+                        <span id="cart-count"
+                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         <?= $cart_count ?>
                     </span>
-                <?php endif; ?>
-            </a>
+                    <?php endif; ?>
+                </a>
+            </div>
         </div>
     </div>
 </nav>
@@ -219,9 +230,9 @@ $cart_count = count($_SESSION['cart']);
         <div class="col-lg-9">
             <div class="row" id="artworks-container">
                 <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-                    <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-in">
                         <div class="card h-100 shadow-sm artwork-card">
-                            <img src="../add-artwork/<?= htmlspecialchars($row['image_path']) ?>" class="card-img-top"
+                            <img loading="lazy" src="../add-artwork/<?= htmlspecialchars($row['image_path']) ?>" class="card-img-top"
                                  alt="<?= htmlspecialchars($row['title']) ?>"
                                  style="height: 250px; object-fit: contain;">
                             <div class="card-body">
@@ -294,6 +305,7 @@ $cart_count = count($_SESSION['cart']);
     </div>
 </div>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -304,7 +316,7 @@ $cart_count = count($_SESSION['cart']);
         const isBooked = cartItems.includes(artwork.id);
 
         return `
-    <div class="col-lg-6 col-md-6 mb-4">
+    <div class="col-lg-6 col-md-6 mb-4" data-aos='fade-in'>
         <div class="card h-100 shadow-sm artwork-card">
             <img src="../add-artwork/${artwork.image_path}" class="card-img-top"
                  alt="${artwork.title}"
@@ -525,6 +537,13 @@ $cart_count = count($_SESSION['cart']);
         document.querySelectorAll('.remove-from-cart-btn').forEach(btn => {
             btn.addEventListener('click', removeFromCartHandler);
         });
+    });
+</script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 400, // Animation duration
+        easing: 'ease-in-out', // Easing type
     });
 </script>
 

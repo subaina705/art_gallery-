@@ -28,13 +28,14 @@ if (isset($_POST['login'])) {
         $result = $stmt->get_result();
 
         if ($result->num_rows === 1) {
-            $admin = $result->fetch_assoc(); 
+            $admin = $result->fetch_assoc();
 
             // Verify password (plain text comparison - INSECURE, see note below)
             if ($pass === $admin['password']) {
                 $_SESSION['admin'] = [
                     'id' => $admin['id'],
                     'username' => $admin['username'],
+                    'profile_image' => $admin['profile_image'],
                     'logged_in' => true
                 ];
 
@@ -57,52 +58,64 @@ if (isset($_POST['login'])) {
     <title>Admin Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body{
-             background: linear-gradient(135deg, #0d6efd 0%, #6f42c1 100%);
+        body {
+            background: linear-gradient(135deg, #0d6efd 0%, #6f42c1 100%);
         }
-        .max-height{
+
+        .btn {
+            border-radius: 3px !important;
+        }
+
+        .max-height {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
+
         .login-container {
             max-width: 400px;
             flex: 1;
             padding: 20px;
             background: white;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .decorative-shape {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.2;
-}
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+        }
 
-.shape-1 {
-    width: 80px;
-    height: 80px;
-    background: #ffc107;
-    top: 10%;
-    left: 10%;
-}
+        .shape-1 {
+            width: 80px;
+            height: 80px;
+            background: #ffc107;
+            top: 10%;
+            left: 10%;
+        }
 
-.shape-2 {
-    width: 120px;
-    height: 120px;
-    background: #e91e63;
-    bottom: 10%;
-    right: 10%;
-}
+        .shape-2 {
+            width: 120px;
+            height: 120px;
+            background: #e91e63;
+            bottom: 10%;
+            right: 10%;
+        }
 
-.shape-3 {
-    width: 60px;
-    height: 60px;
-    background: #4caf50;
-    top: 50%;
-    left: 25%;
-}
+        .shape-3 {
+            width: 60px;
+            height: 60px;
+            background: #4caf50;
+            top: 50%;
+            left: 25%;
+        }
+        .home-btn{
+            position: fixed;
+            top: 30px;
+            left: 30px;
+        }
     </style>
 </head>
 <!DOCTYPE html>
@@ -117,6 +130,9 @@ if (isset($_POST['login'])) {
 
 <div class="login-background position-relative d-flex align-items-center justify-content-center" style="height: 100vh;">
 
+    <div class="home-btn">
+        <a href="./homepage/home.php" class="btn btn-warning btn-lg ">Home</a>
+    </div>
     <!-- Decorative Circles -->
     <div class="decorative-shape shape-1"></div>
     <div class="decorative-shape shape-2"></div>

@@ -1,69 +1,147 @@
-# Art Gallery Website
+# Art Gallery Management System
 
-A web-based art gallery management system that allows users to browse artworks and administrators to manage the gallery content.
+A comprehensive web-based art gallery management system that allows administrators to manage artworks, artists, and categories efficiently.
 
-## Project Overview
+## 🚀 Features
 
-This is a PHP-based web application that serves as an art gallery platform with both public and administrative interfaces. The system allows visitors to browse artworks by category and request purchases, while administrators can manage artworks, artists, and categories through a secure admin panel.
+- **Admin Authentication**
+  - Secure login system
+  - Session management
+  - Protected admin dashboard
 
-## Features
+- **Artwork Management**
+  - Add new artworks
+  - View artwork details
+  - Edit existing artworks
+  - Delete artworks
+  - Categorize artworks
 
-### Public Features
-- Browse artworks in the public gallery
-- View artwork details including title, description, and artist information
+- **Artist Management**
+  - Add new artists
+  - View artist profiles
+  - Edit artist information
+  - Delete artist records
 
-### Admin Features
-- login system
-- Manage artworks (add, edit, delete, view)
-- Manage artists (add, edit, delete, view)
-- Manage categories (add, edit, delete, view)
+- **Category Management**
+  - Add new categories
+  - Organize artworks by categories
 
-## Technical Stack
+## 🛠️ Technology Stack
 
 ### Backend
-- PHP (Server-side scripting)
+- PHP 8.0+
 - MySQL Database
-- Apache Web Server (XAMPP stack)
+- Session-based Authentication
 
 ### Frontend
 - HTML5
 - CSS3
-- Vanilla JavaScript
-- Bootstrap for modern UI
+- Bootstrap 5.3
+- JavaScript
 
-### Database Structure
-The system uses a MySQL database (`art_gallery_db`) with the following main tables:
-- `admin`: Stores admin information
-- `artwork`: Stores artwork information
-- `artist`: Contains artist details
-- `categories`: Manages artwork categories
+### Libraries and Dependencies
+- Bootstrap 5.3.6 (CSS Framework)
+  - Used for responsive design
+  - Pre-built components
+  - Grid system
+  - Form styling
 
-## Project Structure
+- External CDN Packages
+  - Animation Libraries (AOS + Animate.css)
+    - Used for smooth transitions and effects
+    - Enhances user experience with dynamic elements
+  - Typeit.js
+    - Provides dynamic text typing animations
+    - Used for engaging text presentations
+    - Creates interactive typing effects on the website
+
+## 📁 Project Structure
+
 ```
 art_gallery/
-├── admin/           # Admin panel files
-└── README.md        # Project documentation
+├── admin/
+│   ├── add-artwork/      # Artwork creation functionality
+│   ├── add-category/     # Category management
+│   ├── artist/          # Artist management
+│   ├── dashboard/       # Admin dashboard
+│   ├── edit-artwork/    # Artwork editing
+│   ├── edit-artist/     # Artist editing
+│   ├── view-artwork/    # Artwork viewing
+│   ├── view-artist/     # Artist profile viewing
+│   ├── homepage/        # Public homepage
+│   ├── layout/          # Global layout components
+│   ├── login.php        # Admin authentication
+│   └── logout.php       # Session termination
 ```
 
-## Setup Instructions
+## 🔧 Installation
 
-1. Ensure you have WAMP server installed and running
-2. Import the database schema (art_gallery_db)
-3. Place the project files in your XAMPP/htdocs directory
-4. Access the website through your local server (e.g., http://localhost/art_gallery/admin/homepage/)
+1. **Prerequisites**
+   - XAMPP Server (Windows)
+   - PHP 8.0 or higher
+   - MySQL 5.7 or higher
 
-## Security Features
-- Admin authentication system
-- SQL injection prevention using prepared statements
+2. **Database Setup**
+   - Create a new database named `art_gallery_db`
+   - Import the database schema (if provided)
 
-## Browser Compatibility
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+3. **Configuration**
+   - Update database credentials in `admin/login.php`:
+     ```php
+     $conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
+     ```
 
-## Future Enhancements
-- Image upload functionality
+4. **File Structure**
+   - Place all files in your XAMPP's htdocs directory
+   - Ensure proper file permissions
 
-## Contributing
-Feel free to submit issues and enhancement requests.
+## 🔐 Security Features
+
+- Session-based authentication
+- Password protection for admin area
+- Prepared statements for database queries
+
+## 🎨 UI/UX Features
+
+- Responsive design
+- Modern gradient background
+- Decorative elements
+- Bootstrap-based components
+- User-friendly navigation
+- Clean and intuitive interface
+
+## 🚨 Security Notes
+
+The current implementation uses plain text password comparison, which is not secure for production use. It is recommended to:
+
+1. Implement password hashing (e.g., using `password_hash()` and `password_verify()`)
+2. Use HTTPS for all communications
+3. Implement CSRF protection
+4. Add rate limiting for login attempts
+
+## 📝 Usage
+
+1. Access the admin panel through `admin/login.php`
+2. Log in with your credentials
+3. Navigate through the dashboard to manage:
+   - Artworks
+   - Artists
+   - Categories
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
+
+
+## 👥 Authors
+
+- Subaina Tehreem - Initial work
+
+## 🙏 Acknowledgments
+
+- Bootstrap team for the amazing UI framework
+- XAMPP Server for the development environment 

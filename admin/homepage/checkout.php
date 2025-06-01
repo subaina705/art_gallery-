@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+// Check if admin is logged in
+$isAdminLoggedIn = isset($_SESSION['admin']);
+
 $conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
 if (!$conn) {
     die("Database connection failed");
@@ -74,15 +78,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
           integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="home.css">
 </head>
 <body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-primary fs-3" href="#">ArtGallery</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../homepage/home.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#artists">Artists</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#artworks">Artworks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="collection.php">Collection</a>
+                </li>
+            </ul>
+            <?php if ($isAdminLoggedIn): ?>
+                <a href="../dashboard/dashboard.php" class="btn btn-primary px-4">Dashboard</a>
+            <?php else: ?>
+                <a href="../login.php" class="btn btn-primary px-4">Login</a>
+            <?php endif; ?>
+        </div>
+    </div>
+</nav>
 <div class="container py-5">
-    <h2 class="mb-4">Checkout</h2>
+    <h3 class="mb-5 fw-bold">Checkout</h3>
     <div class="row">
         <!-- Left: Form -->
-        <div class="col-lg-8 mb-4">
+        <div class="col-lg-8 mb-4" data-aos="fade-right">
             <div class="card">
                 <div class="card-body">
                     <form method="post">
@@ -108,14 +145,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <!-- Pass artwork IDs for processing -->
                         <input type="hidden" name="cart_ids" value="<?= htmlspecialchars(implode(',', $cart_ids)) ?>"/>
 
-                        <button type="submit" class="btn btn-primary" id="submitBtn">Place Order</button>
+                        <button type="submit" class="btn btn-primary btn-sm" id="submitBtn">Place Order</button>
                     </form>
                 </div>
             </div>
         </div>
 
         <!-- Right: Booked Artworks -->
-        <div class="col-lg-4">
+        <div class="col-lg-4" data-aos="fade-left">
             <?php if (!empty($artworks)): ?>
                 <?php foreach ($artworks as $art): ?>
                     <div class="card mb-3">
@@ -151,8 +188,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </div>
+<!-- Footer -->
+<footer class="bg-dark text-white py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Logo and Description -->
+            <div class="col-lg-6">
+                <div class="h4 text-primary mb-3">ArtGallery</div>
+                <p class="text-light mb-4">
+                    Connecting artists and art lovers worldwide. Discover, collect, and showcase amazing artwork from
+                    talented creators.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-light text-decoration-none hover-link">Facebook</a>
+                    <a href="#" class="text-light text-decoration-none hover-link">Instagram</a>
+                    <a href="#" class="text-light text-decoration-none hover-link">Twitter</a>
+                </div>
+            </div>
 
-<div class="modal fade" id="successModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <!-- Quick Links -->
+            <div class="col-lg-3">
+                <h5 class="mb-3">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#home" class="text-light text-decoration-none hover-link">Home</a></li>
+                    <li class="mb-2"><a href="#artists" class="text-light text-decoration-none hover-link">Artists</a>
+                    </li>
+                    <li class="mb-2"><a href="#artworks" class="text-light text-decoration-none hover-link">Artworks</a>
+                    </li>
+                    <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-link">About Us</a></li>
+                    <li class="mb-2"><a href="#" class="text-light text-decoration-none hover-link">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-lg-3">
+                <h5 class="mb-3">Contact</h5>
+                <div class="text-light">
+                    <p class="mb-2">Email: info@artgallery.com</p>
+                    <p class="mb-2">Phone: (555) 123-4567</p>
+                    <p class="mb-2">Address: 123 Art Street, Creative City, CC 12345</p>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4 border-secondary">
+        <div class="text-center">
+            <p class="mb-0 text-light">&copy; 2024 ArtGallery. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<div class="modal fade" id="successModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0">
@@ -169,6 +256,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -186,6 +275,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         unset($_SESSION['booking_id']);
         ?>
         <?php endif; ?>
+    });
+</script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 400, // Animation duration
+        easing: 'ease-in-out', // Easing type
+        once: true
     });
 </script>
 </body>

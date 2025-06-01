@@ -5,6 +5,22 @@ if (!isset($_SESSION['admin'])) {
     header("Location: login.php");
     exit();
 }
+// Connect to database and get current admin data if not in session
+if (!isset($_SESSION['admin']['profile_image']) || !isset($_SESSION['admin']['username'])) {
+    $conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
+    $admin_id = $_SESSION['admin']['id'];
+    $stmt = $conn->prepare("SELECT username, profile_image FROM admin WHERE id = ?");
+    $stmt->bind_param("i", $admin_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $admin_data = $result->fetch_assoc();
+
+    // Update session with the fresh data
+    $_SESSION['admin']['username'] = $admin_data['username'];
+    $_SESSION['admin']['profile_image'] = $admin_data['profile_image'];
+    $stmt->close();
+    $conn->close();
+}
 ?>
 
 <!doctype html>
@@ -13,6 +29,9 @@ if (!isset($_SESSION['admin'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 
@@ -25,13 +44,33 @@ if (!isset($_SESSION['admin'])) {
     <div class="main-content">
         <header class="top-nav">
             <div class="logo">
-                <a class="navbar-brand fw-bold text-primary fs-3" href="../homepage/home.php">ArtGallery</a>
+                <!--                <a class="navbar-brand fw-bold text-primary fs-3" href="../homepage/home.php">ArtGallery</a>-->
             </div>
-            <div class="user-info d-flex align-items-center">
-                <span class="me-3">
-                    <?= htmlspecialchars($_SESSION['admin']['username']) ?>
-                </span>
-                <a href="../logout.php" class="btn btn-secondary m-0">Logout</a>
+            <div class="user-info d-flex align-items-center gap-4">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="avatar">
+                        <?php if (!empty($_SESSION['admin']['profile_image'])): ?>
+                            <!-- Debug output -->
+                            <div style="display:none">
+                                Image path: <?= htmlspecialchars($_SESSION['admin']['profile_image']) ?>
+                                File exists: <?= file_exists($_SESSION['admin']['profile_image']) ? 'Yes' : 'No' ?>
+                            </div>
+                            <img src="<?= htmlspecialchars($_SESSION['admin']['profile_image']) ?>"
+                                 alt="Profile Image"
+                                 class="rounded-circle"
+                                 style="width: 32px; height: 32px; object-fit: cover;">
+                        <?php else: ?>
+                            <i class="fa-regular fa-user"></i>
+                        <?php endif; ?>
+                    </div>
+                    <span>
+            <?= htmlspecialchars($_SESSION['admin']['username']) ?>
+        </span>
+                </div>
+                <div style="color: #cacaca">
+                    |
+                </div>
+                <a href="../logout.php" class="btn btn-primary btn-sm m-0">Logout</a>
             </div>
         </header>
 

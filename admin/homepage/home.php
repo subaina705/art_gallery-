@@ -1,4 +1,9 @@
 <?php
+session_start();
+
+// Check if admin is logged in
+$isAdminLoggedIn = isset($_SESSION['admin']);
+
 $conn = mysqli_connect("localhost", "root", "", "art_gallery_db");
 
 if (!$conn) {
@@ -25,6 +30,9 @@ while ($row = mysqli_fetch_assoc($artwork_result)) {
 // Split artworks into chunks of 3
 $chunks = array_chunk($artworks, 3);
 
+// Array of different AOS animations
+$aosAnimations = ['flip-left', 'flip-up', 'flip-right', 'flip-down'];
+
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +47,11 @@ $chunks = array_chunk($artworks, 3);
 
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <!-- Custom CSS -->
     <link href="home.css" rel="stylesheet">
 </head>
@@ -68,7 +80,11 @@ $chunks = array_chunk($artworks, 3);
                     <a class="nav-link" href="collection.php">Collection</a>
                 </li>
             </ul>
-            <a href="../login.php" class="btn btn-primary px-4">Login</a>
+            <?php if ($isAdminLoggedIn): ?>
+                <a href="../dashboard/dashboard.php" class="btn btn-primary px-4">Dashboard</a>
+            <?php else: ?>
+                <a href="../login.php" class="btn btn-primary px-4">Login</a>
+            <?php endif; ?>
         </div>
     </div>
 </nav>
@@ -78,10 +94,10 @@ $chunks = array_chunk($artworks, 3);
     <div class="hero-overlay"></div>
     <div class="container position-relative">
         <div class="row justify-content-center text-center text-white">
-            <div class="col-lg-8">
-                <h1 class="display-2 fw-bold mb-4">
-                    Discover Amazing
-                    <span class="d-block text-warning">Art & Artists</span>
+            <div class="col-lg-10">
+                <h1 class="display-3 fw-bold mb-4">
+                    <span id="element" class="d-block text-warning">
+                    </span>
                 </h1>
                 <p class="lead mb-5 text-light">
                     Explore a world of creativity and connect with talented artists from around the globe.
@@ -103,14 +119,21 @@ $chunks = array_chunk($artworks, 3);
 <section id="artists" class="py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-4 fw-bold text-dark mb-3">Featured Artists</h2>
-            <p class="lead text-muted">Meet the talented creators in our community</p>
+            <h2 class="display-4 fw-bold text-dark mb-3" data-aos="fade-up">Featured Artists</h2>
+            <p class="lead text-muted" data-aos="fade-up">Meet the talented creators in our community</p>
         </div>
 
         <div class="row">
             <?php if (mysqli_num_rows($result) > 0): ?>
-                <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                    <div class="col-lg-3 col-md-6 mb-2">
+                <?php
+                $animationIndex = 0;
+                while ($row = mysqli_fetch_assoc($result)):
+                    // Get animation for this card (cycle through the array)
+                    $animation = $aosAnimations[$animationIndex % count($aosAnimations)];
+                    $animationIndex++;
+                    ?>
+                    <div class="col-lg-3 col-md-6 mb-2" data-aos="<?= $animation ?>"
+                         data-aos-delay="<?= $animationIndex * 250 ?>">
                         <div class="card h-100 shadow-sm artist-card">
                             <div class="card-body">
                                 <h5 class="card-title"><?= htmlspecialchars($row['name']) ?></h5>
@@ -121,12 +144,13 @@ $chunks = array_chunk($artworks, 3);
                 <?php endwhile; ?>
             <?php else: ?>
                 <div class="col-12">
-                    <div class=" text-center" role="alert">
+                    <div class="text-center" role="alert">
                         <h3>No artist records found.</h3>
                     </div>
                 </div>
             <?php endif; ?>
         </div>
+
     </div>
 </section>
 
@@ -134,8 +158,8 @@ $chunks = array_chunk($artworks, 3);
 <section id="artworks" class="py-5 bg-white">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-4 fw-bold text-dark mb-3">Featured Artworks</h2>
-            <p class="lead text-muted">Discover amazing pieces from our talented artists</p>
+            <h2 class="display-4 fw-bold text-dark mb-3" data-aos="fade-up">Featured Artworks</h2>
+            <p class="lead text-muted" data-aos="fade-up">Discover amazing pieces from our talented artists</p>
         </div>
 
         <div id="artworkCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -184,7 +208,7 @@ $chunks = array_chunk($artworks, 3);
     <div class="container">
         <div class="row g-4">
             <!-- Logo and Description -->
-            <div class="col-lg-6">
+            <div class="col-lg-6" data-aos="fade-right">
                 <div class="h4 text-primary mb-3">ArtGallery</div>
                 <p class="text-light mb-4">
                     Connecting artists and art lovers worldwide. Discover, collect, and showcase amazing artwork from
@@ -198,7 +222,7 @@ $chunks = array_chunk($artworks, 3);
             </div>
 
             <!-- Quick Links -->
-            <div class="col-lg-3">
+            <div class="col-lg-3 " data-aos="fade-left">
                 <h5 class="mb-3">Quick Links</h5>
                 <ul class="list-unstyled">
                     <li class="mb-2"><a href="#home" class="text-light text-decoration-none hover-link">Home</a></li>
@@ -212,7 +236,7 @@ $chunks = array_chunk($artworks, 3);
             </div>
 
             <!-- Contact Info -->
-            <div class="col-lg-3">
+            <div class="col-lg-3" data-aos="fade-left">
                 <h5 class="mb-3">Contact</h5>
                 <div class="text-light">
                     <p class="mb-2">Email: info@artgallery.com</p>
@@ -229,7 +253,81 @@ $chunks = array_chunk($artworks, 3);
     </div>
 </footer>
 
+
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+<script src="https://unpkg.com/typeit@8.8.7/dist/index.umd.js"></script>
+
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 400, // Animation duration
+        easing: 'ease-in-out', // Easing type
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const phrases = [
+            "around the Globe!",
+            "in your city!",
+            "from top creators!",
+            "just for you!"
+        ];
+
+        // First animation: runs ONCE
+        new TypeIt("#element", {
+            speed: 50,
+            startDelay: 900,
+            lifeLike: true,
+            waitUntilVisible: true,
+            afterComplete: function () {
+                loopLastPart(); // Start looping the last part after intro completes
+            }
+        })
+            .type("<span class='text-white'>dicover a wrld of creativity </span>", {delay: 100})
+            .move(-27, {delay: 100})
+            .type("s", {delay: 400})
+            .move(null, {to: "START", instant: false, delay: 300})
+            .move(1, {delay: 200})
+            .delete(1)
+            .type("D", {delay: 225})
+            .pause(200)
+            .move(2, {instant: true})
+            .pause(200)
+            .move(5, {instant: true})
+            .move(4, {delay: 200})
+            .type("o", {delay: 350})
+            .move(null, {to: "END"})
+            .type("explore unique artwrks, artists and")
+            .move(-16, {delay: 150})
+            .type("o")
+            .move(null, {to: "END"})
+            .type(' collections <span class="place"> </span>', {delay: 300})
+            .go();
+
+        // Loop the final part only
+        function loopLastPart(i = 0) {
+            new TypeIt(".place", {
+                speed: 50,
+                deleteSpeed: 50,
+                loop: false,
+                lifeLike: true,
+                startDelay: 200,
+                afterComplete: function (instance) {
+                    instance.destroy();
+                    setTimeout(() => {
+                        loopLastPart((i + 1) % phrases.length);
+                    }, 800); // Wait before restarting
+                }
+            })
+                .type(phrases[i])
+                .pause(800)
+                .delete()
+                .go();
+        }
+    });
+</script>
 </body>
 </html>

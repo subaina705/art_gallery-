@@ -100,7 +100,7 @@ mysqli_close($conn);
 <?php endif; ?>
 
 <div class="">
-    <h2 class="mb-4">Manage Categories</h2>
+    <h3 class="mb-5 fw-bold">Manage Categories</h3>
 
     <!-- Add Category Form -->
     <div class="card mb-4">
@@ -140,7 +140,7 @@ mysqli_close($conn);
                                         <form method="POST" class="d-flex gap-2">
                                             <input type="hidden" name="action" value="update">
                                             <input type="hidden" name="id" value="<?php echo $cat["id"]; ?>">
-                                            <input type="text" name="category_name" class="form-control"
+                                            <input type="text" name="category_name" class="form-control form-control-sm"
                                                    value="<?php echo htmlspecialchars($cat["name"]); ?>" required>
                                             <button type="submit" class="btn btn-success btn-sm">Save</button>
                                             <a href="<?php echo $_SERVER['PHP_SELF']; ?>"
@@ -151,12 +151,14 @@ mysqli_close($conn);
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <div class="d-flex align-items-center gap-2">
+                                    <div class="d-flex align-items-center gap-4">
                                         <?php if ($editing_id != $cat["id"]): ?>
-                                            <a href="?edit=<?php echo $cat["id"]; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="?edit=<?php echo $cat["id"]; ?>" class="text-black fs-18"><i
+                                                        class="fa-solid fa-pen"></i></a>
                                         <?php endif; ?>
-                                        <a href="?delete=<?php echo $cat["id"]; ?>" class="btn btn-danger btn-sm"
-                                           onclick="return confirm('Delete this category?');">Delete</a>
+                                        <a href="?delete=<?php echo $cat["id"]; ?>" class="text-danger fs-18"
+                                           onclick="return confirm('Delete this category?');"><i
+                                                    class="fa-solid fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -165,7 +167,9 @@ mysqli_close($conn);
                     </table>
                 </div>
             <?php else: ?>
-                <p class="text-muted">No categories found.</p>
+                <div class="alert alert-info" role="alert">
+                    No categories found!
+                </div>
             <?php endif; ?>
         </div>
     </div>

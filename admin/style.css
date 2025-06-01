@@ -11,6 +11,40 @@ body {
     object-fit: cover;
 }
 
+.btn {
+    border-radius: 3px !important;
+}
+
+.fs-18 {
+    font-size: 18px
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+.fs-12{
+    font-size: 12px;
+}
+
+.btn:focus, .btn-close:focus {
+    box-shadow: none;
+}
+
+.form-control:focus, .form-check-input:focus {
+    box-shadow: none;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e4e4e4;
+}
+
 .txt {
     position: absolute;
     top: 50%;
@@ -64,9 +98,10 @@ body {
     width: 240px;
     background-color: white;
     border-right: 1px solid #eaeaea;
-    padding: 20px;
+    padding: 13px;
     box-sizing: border-box;
     flex-shrink: 0;
+    position: relative;
 }
 
 .sidebar h2 {
@@ -153,7 +188,7 @@ table th, table td {
 }
 
 .sidebar ul li a.active {
-    background-color: gray;
+    background-color: #0d6efd;
     color: white;
     display: block;
     padding: 8px 12px;
@@ -164,6 +199,12 @@ table th, table td {
     padding: 8px 12px;
 }
 
+.return-home-link {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+}
 
 /* Responsive */
 @media (max-width: 768px) {

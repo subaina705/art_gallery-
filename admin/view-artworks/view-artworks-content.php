@@ -10,8 +10,8 @@ $query = "SELECT `artwork`.*, artist.name AS artist_name, categories.name AS cat
 $result = mysqli_query($conn, $query);
 ?>
 <div class="mb-5 d-flex align-items-center justify-content-between">
-    <h2>Artworks</h2>
-    <a class="btn btn-primary" href="../add-artwork/add-artwork.php">Add Artwork</a>
+    <h3 class="fw-bold">Artworks</h3>
+    <a class="btn btn-primary btn-sm" href="../add-artwork/add-artwork.php">Add Artwork</a>
 </div>
 
 <?php if (mysqli_num_rows($result) > 0): ?>
@@ -20,8 +20,8 @@ $result = mysqli_query($conn, $query);
             <div class="col">
                 <div class="card h-100">
                     <?php if (!empty($row['image_path'])): ?>
-                        <img src="../add-artwork/<?= htmlspecialchars($row['image_path']) ?>" class="card-img-top"
-                             alt="Artwork Image" style="object-fit: cover; height: 200px;">
+                        <img loading="lazy" src="../add-artwork/<?= htmlspecialchars($row['image_path']) ?>" class="card-img-top"
+                             alt="Artwork Image" style="object-fit: contain; height: 200px;">
                     <?php else: ?>
                         <svg class="bd-placeholder-img card-img-top" width="100%" height="200"
                              xmlns="http://www.w3.org/2000/svg"
@@ -34,15 +34,15 @@ $result = mysqli_query($conn, $query);
                     <?php endif; ?>
 
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title"><?= htmlspecialchars($row['title']) ?></h5>
-                        <h6 class="card-subtitle mb-2 text-muted">by <?= htmlspecialchars($row['artist_name']) ?></h6>
-                        <p class="card-text flex-grow-1"><?= nl2br(htmlspecialchars($row['description'])) ?></p>
-                        <p><strong>Category:</strong> <?= htmlspecialchars($row['category_name']) ?></p>
-                        <div class="mt-auto">
+                        <h5 class="card-title fw-bold"><?= htmlspecialchars($row['title']) ?></h5>
+                        <h6 class="card-subtitle mb-0 text-muted fs-14">by <?= htmlspecialchars($row['artist_name']) ?></h6>
+                        <p class="card-text flex-grow-1 text-muted my-3 fs-14"><i><?= nl2br(htmlspecialchars($row['description'])) ?></i></p>
+                        <p class="fs-14"><strong>Category:</strong> <?= htmlspecialchars($row['category_name']) ?></p>
+                        <div class="mt-auto d-flex gap-4 justify-content-end">
                             <a href="../edit-artwork/edit-artwork.php?id=<?= $row['id'] ?>"
-                               class="btn btn-sm btn-primary">Edit</a>
+                               class="text-black fs-18"><i class="fa-solid fa-pen"></i></a>
                             <a href="../delete-artwork/delete_artwork.php?id=<?= $row['id'] ?>"
-                               class="btn btn-sm btn-danger" onclick="return confirm('Delete this artwork?')">Delete</a>
+                               class="text-danger fs-18" onclick="return confirm('Delete this artwork?')"><i class="fa-solid fa-trash"></i></a>
                         </div>
                     </div>
                 </div>
